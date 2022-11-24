@@ -17,7 +17,7 @@
 	var/mob/living/carbon/owner = null
 	var/mob/living/carbon/original_owner = null
 	var/status = BODYPART_ORGANIC
-	var/needs_processing = FALSE
+	var/needs_processing = TRUE
 
 	var/body_zone //BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
 	var/list/aux_icons // associative list, currently used for hands
@@ -76,9 +76,13 @@
 	var/medium_brute_msg = "battered"
 	var/heavy_brute_msg = "mangled"
 
-	var/light_burn_msg = "numb"
-	var/medium_burn_msg = "blistered"
-	var/heavy_burn_msg = "peeling away"
+	var/light_burn_msg = "singed"
+	var/medium_burn_msg = "burnt"
+	var/heavy_burn_msg = "charred"
+
+	var/light_bleed_msg = "roughed up"
+	var/medium_bleed_msg = "cut up"
+	var/heavy_bleed_msg = "shredded"
 
 	var/render_like_organic = FALSE // forces limb to render as if it were an organic limb
 
@@ -168,6 +172,8 @@
 	if(status != BODYPART_ROBOTIC)
 		playsound(T, 'sound/misc/splort.ogg', 50, 1, -1)
 	if(current_gauze)
+		QDEL_NULL(current_gauze)
+	if(current_suture)
 		QDEL_NULL(current_gauze)
 	for(var/obj/item/organ/drop_organ in get_organs())
 		drop_organ.transfer_to_limb(src, owner)
@@ -369,11 +375,16 @@
  */
 /obj/item/bodypart/proc/check_wounding(woundtype, damage, wound_bonus, bare_wound_bonus)
 	// actually roll wounds if applicable
+
+	damage = min(damage * CONFIG_GET(number/wound_damage_multiplier), WOUND_MAX_CONSIDERED_DAMAGE)
+	
 	if(HAS_TRAIT(owner, TRAIT_EASYLIMBDISABLE))
 		damage *= 1.5
-	else
-		damage = min(damage * CONFIG_GET(number/wound_damage_multiplier), WOUND_MAX_CONSIDERED_DAMAGE)
-
+	if(woundtype == WOUND_BLUNT && HAS_TRAIT(owner, TRAIT_GLASS_BONES))
+		damage *= 1.5
+	if((woundtype in PAPER_SKIN_WOUNDS) && HAS_TRAIT(owner, TRAIT_PAPER_SKIN))
+		damage *= 1.5
+	
 	var/base_roll = rand(
 		min(damage * WOUND_DAMAGE_RANDOM_FLOOR_MULT, WOUND_MAX_CONSIDERED_DAMAGE),
 		min(damage * WOUND_DAMAGE_RANDOM_MAX_MULT, WOUND_MAX_CONSIDERED_DAMAGE)
@@ -383,7 +394,7 @@
 
 	if(injury_roll < WOUND_MINIMUM_DAMAGE)
 		return FALSE // not enough to wound
-	
+
 	bleed_dam = min(bleed_dam + injury_roll, WOUND_BLEED_CAP)
 
 	for(var/i in wounds)
@@ -401,7 +412,7 @@
 				bare_wound_bonus = 0
 				break
 
-	var/list/wounds_checking = GLOB.global_wound_types[woundtype]	
+	var/list/wounds_checking = GLOB.global_wound_types[woundtype]
 	/// Temporary wound handling for bleeds
 	if(woundtype == WOUND_SLASH || woundtype == WOUND_PIERCE)
 		if(apply_bleed_wound(woundtype, wounds_checking))
@@ -975,7 +986,7 @@
 	for(var/i in wounds)
 		var/datum/wound/iter_wound = i
 		dam_mul *= iter_wound.damage_mulitplier_penalty
-	
+
 	//if we truly dont need our bandages anymore, dump em
 	//if(!LAZYLEN(wounds) && !replaced && !bleed_dam && !burn_dam && !brute_dam)
 	//	destroy_coverings()
@@ -987,18 +998,41 @@
  * destroy_coverings() destroys coverings, not much else to say
  *
  */
-/obj/item/bodypart/proc/destroy_coverings()
-	if(current_gauze)
-		owner.visible_message(
-			span_notice("\The [current_gauze] on [owner]'s [name] fall away, no longer needed."), 
-			span_notice("\The [current_gauze] on your [name] fall away, no longer needed."))
+/obj/item/bodypart/proc/destroy_coverings(which_covering, intentionally_removed, by_who)
+	if(!which_covering)
+		which_covering = "both"
+	if(current_gauze && (which_covering == "bandage" || which_covering == "both"))
+		if(intentionally_removed)
+			if(by_who && by_who == owner)
+				owner.visible_message(
+					span_notice("[by_who] removes the [current_gauze.name] on [owner]'s [name]."),
+					span_notice("You remove the [current_gauze.name] on [owner]'s [name]."))
+			else
+				owner.visible_message(
+					span_notice("[owner] removes the [current_gauze.name] on [owner.p_their()] [name]."),
+					span_notice("You remove the [current_gauze.name] on your [name]."))
+		else
+			owner.visible_message(
+				span_notice("\The [current_gauze] on [owner]'s [name] fall away, no longer needed."),
+				span_notice("\The [current_gauze] on your [name] fall away, no longer needed."))
 		QDEL_NULL(current_gauze)
-	if(current_suture)
-		owner.visible_message(
-			span_notice("\The [current_suture] on [owner]'s [name] absorb into [owner.p_their()] skin as [owner.p_their()] wounds close."), 
-			span_notice("\The [current_suture] on your [name] absorb into [owner.p_their()] skin as [owner.p_their()] wounds close."))
+		. = TRUE
+	if(current_suture && (which_covering == "suture" || which_covering == "both"))
+		if(intentionally_removed)
+			if(by_who && by_who == owner)
+				owner.visible_message(
+					span_notice("[by_who] removes the [current_suture.name] on [owner]'s [name]."),
+					span_notice("You remove the [current_suture.name] on [owner]'s [name]."))
+			else
+				owner.visible_message(
+					span_notice("[owner] pops the [current_suture.name] on [owner.p_their()] [name]."),
+					span_notice("You pop the [current_suture.name] on your [name]."))
+		else
+			owner.visible_message(
+				span_notice("\The [current_suture] on [owner]'s [name] absorb into [owner.p_their()] skin as [owner.p_their()] wounds close."),
+				span_notice("\The [current_suture] on your [name] absorb into [owner.p_their()] skin as [owner.p_their()] wounds close."))
 		QDEL_NULL(current_suture)
-	needs_processing = FALSE
+		. = TRUE
 
 /obj/item/bodypart/proc/get_bleed_rate(include_reductions = TRUE)
 	if(status != BODYPART_ORGANIC) // maybe in the future we can bleed oil from aug parts, but not now
@@ -1086,12 +1120,10 @@
 		needs_processing = TRUE
 		return BANDAGE_STILL_INTACT
 	owner.visible_message(
-		span_warning("\The [current_gauze] on [owner]'s [name] become totally soaked, and fall off in a bloody heap."), 
-		span_warning("\The [current_gauze] on your [name] become totally soaked, and fall off in a bloody heap."), 
+		span_warning("\The [current_gauze] on [owner]'s [name] become totally soaked, and fall off in a bloody heap."),
+		span_warning("\The [current_gauze] on your [name] become totally soaked, and fall off in a bloody heap."),
 		vision_distance=COMBAT_MESSAGE_RANGE)
 	QDEL_NULL(current_gauze)
-	if(!current_suture)
-		needs_processing = FALSE
 	return BANDAGE_TIMED_OUT
 
 /**
@@ -1124,7 +1156,7 @@
 /**
  * damage_gauze() simply damages the gauze on the limb, reducing its HP
  *
- * The passed amount of damage deducts hitspoints from the bandage 
+ * The passed amount of damage deducts hitspoints from the bandage
  *
  * Arguments:
  * * brute - How much brute is being calculated for bandage damage
@@ -1135,7 +1167,7 @@
 		return FALSE
 	if(brute < 1 && burn < 1)
 		return FALSE
-	
+
 	var/damage_raw = brute + (burn * BANDAGE_BURN_MULT)
 	var/damage_to_do = 0
 	switch(damage_raw)
@@ -1151,13 +1183,13 @@
 	current_gauze.covering_hitpoints -= damage_to_do
 	/* if(current_gauze.covering_hitpoints > 0)
 		owner.visible_message(
-			span_warning("\The [current_gauze] on [owner]'s [name] tear from the blow!"), 
-			span_warning("\The [current_gauze] on your [name] tear from the blow!"), 
+			span_warning("\The [current_gauze] on [owner]'s [name] tear from the blow!"),
+			span_warning("\The [current_gauze] on your [name] tear from the blow!"),
 			vision_distance=COMBAT_MESSAGE_RANGE) */
 	if(current_gauze.covering_hitpoints <= 0)
 		owner.visible_message(
-			span_warning("\The [current_gauze] on [owner]'s [name] rip to shreds from the impact, falling away in a heap!"), 
-			span_danger("\The [current_gauze] on your [name] rip to shreds from the impact, falling away in a heap!"), 
+			span_warning("\The [current_gauze] on [owner]'s [name] rip to shreds from the impact, falling away in a heap!"),
+			span_danger("\The [current_gauze] on your [name] rip to shreds from the impact, falling away in a heap!"),
 			vision_distance=COMBAT_MESSAGE_RANGE)
 		QDEL_NULL(current_gauze)
 		S_TIMER_COOLDOWN_RESET(src, BANDAGE_COOLDOWN_ID)
@@ -1224,12 +1256,10 @@
 		needs_processing = TRUE
 		return SUTURE_STILL_INTACT
 	owner.visible_message(
-		span_warning("\The [current_suture] on [owner]'s [name] fray to the point of breaking!"), 
-		span_danger("\The [current_suture] on your [name] fray to the point of breaking!"), 
+		span_warning("\The [current_suture] on [owner]'s [name] fray to the point of breaking!"),
+		span_danger("\The [current_suture] on your [name] fray to the point of breaking!"),
 		vision_distance=COMBAT_MESSAGE_RANGE)
 	QDEL_NULL(current_suture)
-	if(!current_gauze)
-		needs_processing = FALSE
 	return SUTURE_TIMED_OUT
 
 /**
@@ -1247,7 +1277,7 @@
 /**
  * damage_suture() simply damages the suture on the limb, reducing its HP
  *
- * The passed amount of damage deducts hitspoints from the bandage 
+ * The passed amount of damage deducts hitspoints from the bandage
  *
  * Arguments:
  * * brute - How much brute is being calculated for bandage damage
@@ -1258,7 +1288,7 @@
 		return FALSE
 	if((brute + burn) < 1)
 		return FALSE
-	
+
 	var/damage_raw = brute + (burn * SUTURE_BURN_MULT)
 	var/damage_to_do = 0
 	switch(damage_raw)
@@ -1274,14 +1304,14 @@
 	current_suture.covering_hitpoints -= damage_to_do
 	/* if(current_suture.covering_hitpoints > 0)
 		owner.visible_message(
-			span_warning("\The [current_suture] on [owner]'s [name] tears from the blow!"), 
-			span_warning("\The [current_suture] on your [name] tear from the blow!"), 
+			span_warning("\The [current_suture] on [owner]'s [name] tears from the blow!"),
+			span_warning("\The [current_suture] on your [name] tear from the blow!"),
 			vision_distance=COMBAT_MESSAGE_RANGE)
 	else */
 	if(current_suture.covering_hitpoints <= 0)
 		owner.visible_message(
-			span_warning("\The [current_suture] on [owner]'s [name] pops wide open, shredded to bloody fragments!"), 
-			span_danger("\The [current_suture] on your [name] pops wide open, shredded to bloody fragments!"), 
+			span_warning("\The [current_suture] on [owner]'s [name] pops wide open, shredded to bloody fragments!"),
+			span_danger("\The [current_suture] on your [name] pops wide open, shredded to bloody fragments!"),
 			vision_distance=COMBAT_MESSAGE_RANGE)
 		QDEL_NULL(current_suture)
 		S_TIMER_COOLDOWN_RESET(src, SUTURE_COOLDOWN_ID)
@@ -1289,7 +1319,7 @@
 	return TRUE
 
 /**
- * covering_heal_nutrition_mod() takes in an amount of bleed healing to do, 
+ * covering_heal_nutrition_mod() takes in an amount of bleed healing to do,
  * multiplies it by some nutrition-based numbers,
  * deducts an amount of nutrition
  * and heals an amount of bleed_dam
@@ -1300,7 +1330,7 @@
 /obj/item/bodypart/proc/covering_heal_nutrition_mod(bleed_heal, damage_heal)
 	if(!is_damaged())
 		return FALSE // no damage, so dont spend any nutrition
-	
+
 	if(!HAS_TRAIT(owner, TRAIT_NOHUNGER) && owner.nutrition > NUTRITION_LEVEL_HUNGRY)
 		var/bleed_nutrition_bonus = 0
 		var/damage_nutrition_bonus = 0
@@ -1311,21 +1341,21 @@
 			if(NUTRITION_LEVEL_WELL_FED to INFINITY)
 				bleed_nutrition_bonus = WOUND_HEAL_FULL
 				damage_nutrition_bonus = DAMAGE_HEAL_FULL
-		
+
 		if(owner.satiety > 40) // idk how satiety works, it might not come to think of it
 			bleed_nutrition_bonus *= 1.25
 			damage_nutrition_bonus *= 1.25
-		
+
 		if(bleed_heal && bleed_nutrition_bonus && bleed_dam)
 			bleed_heal *= bleed_nutrition_bonus
 			owner.adjust_nutrition(-(bleed_heal * WOUND_HEAL_NUTRITION_COST)) // Only charge for the extra
 			bleed_heal = round(max(bleed_heal, DAMAGE_PRECISION), DAMAGE_PRECISION) // To ensure it actually *heals*, too little and it does nothing!
-		
+
 		if(damage_heal && damage_nutrition_bonus && (brute_dam || burn_dam))
 			damage_heal *= damage_nutrition_bonus
 			owner.adjust_nutrition(-(damage_heal * DAMAGE_HEAL_NUTRITION_COST))
 			damage_heal = round(max(damage_heal, DAMAGE_PRECISION), DAMAGE_PRECISION) // To ensure it actually *heals*, too little and it does nothing!
-	
+
 	heal_damage(damage_heal, damage_heal, damage_heal, FALSE, TRUE, TRUE, bleed_heal)
 
 /**

@@ -32,7 +32,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_SHOTGUN_BASE
 
-	gun_skill_check = AFFECTED_BY_FAST_PUMP
+	gun_skill_check = AFFECTED_BY_FAST_PUMP | AFFECTED_BY_AUTO_PUMP
 	can_scope = FALSE
 	flags_1 =  CONDUCT_1
 	casing_ejector = FALSE
@@ -115,7 +115,7 @@
 
 /// Pump if click with empty thing
 /obj/item/gun/ballistic/shotgun/shoot_with_empty_chamber(mob/living/user, pointblank = FALSE, mob/pbtarget, message = 1, stam_cost = 0)
-	if(chambered)
+	if(chambered && HAS_TRAIT(user, TRAIT_FAST_PUMP))
 		attack_self(user)
 	else
 		..()
@@ -249,6 +249,63 @@
 	if(sawn_off)
 		icon_state = "[initial(icon_state)]-sawn"
 	else if(!magazine || !magazine.ammo_count(0))
+		icon_state = "[initial(icon_state)]-e"
+	else
+		icon_state = "[initial(icon_state)]"
+
+/* * * * * * * * * * *
+ * Singleshot shotgun
+ * Baseline "DB" shotgun
+ * 12g
+ * fits in a pocket
+ * One shot
+ * Squeak
+ * tulyak
+ * Common
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/revolver/shotpistol
+	name = "hand shotgun"
+	desc = "Exactly one half of a sawed off double barrel shotgun, stripped down and streamlined to fit snugly in someone's pocket. \
+			The rubberized grip helps absorb just enough of the recoil to be fired with one hand, and a sturdy latch locks the breech \
+			open after unloading for easy access. Despite claims to the contrary, this is <i>not</i> just flare gun with extra parts. \
+			Allegedly based on old schematics for the 'tulyak' single-shot pistol shotgun, albeit rechambered to 12-gauge due to availability."
+	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon_state = "shotpistol"
+	item_state = "357colt"
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT | ITEM_SLOT_POCKET
+	w_class = WEIGHT_CLASS_TINY
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/single
+
+	slowdown = GUN_SLOWDOWN_PISTOL_LIGHT
+	force = GUN_MELEE_FORCE_PISTOL_HEAVY
+	weapon_weight = GUN_ONE_HAND_AKIMBO
+	draw_time = GUN_DRAW_QUICK
+	fire_delay = GUN_FIRE_DELAY_NORMAL
+	autofire_shot_delay = GUN_AUTOFIRE_DELAY_NORMAL
+	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTEST
+	burst_size = 1
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	init_firemodes = list(
+		list(mode_name="Single-fire", mode_desc="Punch a hole in something", burst_size=1, icon="semi")
+	)
+
+	fire_sound = 'sound/f13weapons/max_sawn_off.ogg'
+	gun_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(SHOTGUN_VOLUME),
+		SP_VOLUME_SILENCED(SHOTGUN_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(SHOTGUN_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(SHOTGUN_DISTANT_SOUND),
+		SP_DISTANT_RANGE(SHOTGUN_RANGE_DISTANT)
+	)
+
+/obj/item/gun/ballistic/revolver/shotpistol/update_icon_state()
+	if(!magazine || !magazine.ammo_count(TRUE))
 		icon_state = "[initial(icon_state)]-e"
 	else
 		icon_state = "[initial(icon_state)]"
@@ -658,7 +715,7 @@
 	cock_delay = GUN_COCK_SHOTGUN_BASE
 	init_recoil = RIFLE_RECOIL(2.8)
 	init_firemodes = list(
-		FULL_AUTO_300,
+		FULL_AUTO_150,
 		SEMI_AUTO_NODELAY
 	)
 

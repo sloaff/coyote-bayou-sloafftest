@@ -477,6 +477,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/gun/shotpistol
+	name = "Shotpistol"
+	result = /obj/item/gun/ballistic/revolver/shotpistol
+	reqs = list(/obj/item/stack/rods = 1,
+				/obj/item/stack/crafting/metalparts = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/gun/pepperbox
 	name = "Pepperbox gun (10mm)"
 	result = /obj/item/gun/ballistic/revolver/hobo/pepperbox
@@ -1594,7 +1604,7 @@
 	subcategory = CAT_PARTS
 	always_available = FALSE
 
-/datum/crafting_recipe/overshootermod
+/*/datum/crafting_recipe/overshootermod
 	name = "Extended internal magazine kit"
 	result = /obj/item/gun_upgrade/mechanism/overshooter
 	reqs = list(
@@ -1606,7 +1616,7 @@
 	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_PARTS
-	always_available = FALSE
+	always_available = FALSE*/
 
 /datum/crafting_recipe/ai_tool
 	name = "Vault-Tec Integrated ZAX module"
@@ -1615,7 +1625,6 @@
 				/obj/item/gun_upgrade/mechanism/overdrive = 1,
 				/obj/item/stack/sheet/bluespace_crystal = 1,
 				/obj/item/stock_parts/scanning_module/triphasic = 1,
-				/obj/item/gun_upgrade/mechanism/overshooter = 1
 	)
 	tools = list(TOOL_AWORKBENCH)
 	time = 30
@@ -1793,6 +1802,7 @@ Not implemented due to balance at the moment
 	time = 120
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	always_available = FALSE
 
 /datum/crafting_recipe/schmeisser
 	name = "Schmeisser Classic"
@@ -1805,3 +1815,4 @@ Not implemented due to balance at the moment
 	time = 120
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	always_available = FALSE

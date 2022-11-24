@@ -318,6 +318,12 @@
 
 	..()	//CITADEL CHANGE - removes a tab from behind this ..() so that flavortext can actually be examined
 
+	// Gremling is just gonna do gremlin things and add this here > w> Cant be assed trying to fit this in somewhere else for now.
+	if(href_list["enlargeImage"])
+		var/dat = {"<img src='[DiscordLink(profilePicture)]'>"}
+		var/datum/browser/popup = new(usr, "enlargeImage", "Full Sized Picture!")
+		popup.set_content(dat)
+		popup.open()
 
 ///////HUDs///////
 	if(href_list["hud"])
@@ -686,7 +692,6 @@
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "perform_cpr", /datum/mood_event/perform_cpr)
 		C.cpr_time = world.time
 		log_combat(src, C, "CPRed")
-
 		if(they_breathe && they_lung)
 			var/suff = min(C.getOxyLoss(), 7)
 			C.adjustOxyLoss(-suff)
@@ -696,6 +701,11 @@
 			to_chat(C, "<span class='unconscious'>You feel a breath of fresh air... but you don't feel any better...</span>")
 		else
 			to_chat(C, "<span class='unconscious'>You feel a breath of fresh air... which is a sensation you don't recognise...</span>")
+
+/mob/living/carbon/human/is_literate()
+	if(HAS_TRAIT(src, TRAIT_ILLITERATE))
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(dna && dna.check_mutation(HULK))

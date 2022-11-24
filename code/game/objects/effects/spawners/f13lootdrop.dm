@@ -297,6 +297,8 @@
 				/obj/item/clothing/suit/armor/light/leather/leathercoat,
 				/obj/item/clothing/suit/armor/medium/vest,
 				/obj/item/clothing/suit/armor/medium/vest/alt,
+				/obj/item/clothing/suit/armor/medium/raider/slam,
+				/obj/item/clothing/suit/armor/medium/raider/scrapcombat
 				)
 
 /obj/effect/spawner/bundle/f13/armor/knight
@@ -331,6 +333,25 @@
 				/obj/effect/spawner/bundle/f13/armor/sulphite,
 				/obj/effect/spawner/bundle/f13/armor/vault,
 				/obj/item/clothing/suit/armor/medium/vest/breastplate/khan
+				)
+
+/obj/effect/spawner/lootdrop/f13/armor/randomraiderchest //random raider armor
+	name = "raider boss armor drop"
+	loot = list(
+				/obj/item/clothing/suit/armor/medium/raider/scrapcombat,
+				/obj/item/clothing/suit/armor/medium/raider/slam,
+				/obj/item/clothing/suit/armor/medium/raider/rebel,
+				/obj/item/clothing/suit/armor/medium/raider/scrapcombat,
+				/obj/item/clothing/suit/armor/medium/raider/slam,
+				/obj/item/clothing/suit/armor/medium/raider/wastewar,
+				/obj/item/clothing/suit/armor/medium/combat/mk2/raider) // da grail
+
+/obj/effect/spawner/lootdrop/f13/armor/randomraiderhead //random raider armor
+	name = "raider boss armor drop"
+	loot = list(
+				/obj/item/clothing/head/helmet/f13/raider/wastehound,
+				/obj/item/clothing/head/helmet/f13/raidermetal,
+				/obj/item/clothing/head/helmet/f13/combat/mk2/raider
 				)
 
 /obj/effect/spawner/bundle/f13/armor/metal/reinforced
@@ -380,7 +401,8 @@
 				/obj/effect/spawner/bundle/f13/armor/t45b_salvaged,
 				/obj/effect/spawner/bundle/f13/armor/riot,
 				/obj/effect/spawner/bundle/f13/armor/combat/mk2,
-				/obj/effect/spawner/bundle/f13/armor/combat/mk2/dark
+				/obj/effect/spawner/bundle/f13/armor/combat/mk2/dark,
+				/obj/item/clothing/suit/armor/medium/raider/reptiliatenebris
 				)
 
 /obj/effect/spawner/bundle/f13/armor/t45b_salvaged
@@ -718,10 +740,10 @@
 				/obj/item/melee/transforming/energy/axe/protonaxe,
 				/obj/item/gun/ballistic/revolver/ballisticfist,
 				/obj/item/twohanded/sledgehammer/supersledge,
+				/obj/item/melee/powerfist/f13/goliath,
 				/obj/item/shishkebabpack,
 				/obj/item/melee/unarmed/deathclawgauntlet,
-				/obj/item/melee/powerfist/f13/moleminer,
-				/obj/item/twohanded/legionaxe
+				/obj/item/melee/powerfist/f13/moleminer
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random
@@ -833,6 +855,7 @@
 				/obj/effect/spawner/bundle/f13/caravan_shotgun,
 				/obj/item/gun/ballistic/rifle/hunting, //No. More. Mosin.
 				/obj/effect/spawner/bundle/f13/remington,
+				/obj/effect/spawner/bundle/f13/shotpistol,
 				/obj/effect/spawner/bundle/f13/sportcarbine,
 				/obj/effect/spawner/bundle/f13/widowmaker,
 				/obj/effect/spawner/bundle/f13/varmint
@@ -841,14 +864,16 @@
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low
 	name = "low tier ballistic gun"
-	loot = list(/obj/effect/spawner/bundle/f13/m1911,
-				/obj/effect/spawner/bundle/f13/thatgun,
-				/obj/effect/spawner/bundle/f13/n99,
-				/obj/effect/spawner/bundle/f13/colt357,
-				/obj/effect/spawner/bundle/f13/huntingshotgun,
-				/obj/effect/spawner/bundle/f13/police_pistol,
-				/obj/effect/spawner/bundle/f13/guns/commando,
-				/obj/effect/spawner/bundle/f13/m1carbine
+	loot = list(/obj/effect/spawner/bundle/f13/m1911 = 5,
+				/obj/effect/spawner/bundle/f13/thatgun = 5,
+				/obj/effect/spawner/bundle/f13/n99 = 5,
+				/obj/effect/spawner/bundle/f13/colt357 = 5,
+				/obj/effect/spawner/bundle/f13/huntingshotgun = 4,
+				/obj/effect/spawner/bundle/f13/police_pistol = 5,
+				/obj/effect/spawner/bundle/f13/guns/commando = 5,
+				/obj/effect/spawner/bundle/f13/m1carbine = 5,
+				/obj/effect/spawner/bundle/f13/sidewinder = 1,
+				/obj/effect/spawner/bundle/f13/mini22uzi = 2
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/garbagetomid
@@ -862,17 +887,18 @@
 				/obj/effect/spawner/bundle/f13/guns/commando = 2,
 				/obj/effect/spawner/bundle/f13/m1carbine = 3,
 				/obj/effect/spawner/bundle/f13/wattz = 1,
+				/obj/item/gun/energy/laser/wattzs = 3,
+				/obj/item/gun/energy/laser/auto = 1,
 				/obj/item/gun/ballistic/rifle/mosin = 1,
 				/obj/item/gun/ballistic/rifle/hunting = 3,
 				/obj/item/gun/ballistic/automatic/pistol/type17 = 3,
-				/obj/effect/spawner/lootdrop/f13/junkspawners = 33,
+				/obj/effect/spawner/lootdrop/f13/junkspawners = 32,
 				/obj/item/stack/medical/gauze/improvised = 2,
 				/obj/item/stack/medical/ointment/five = 2,
 				/obj/item/stack/medical/suture/emergency/five = 2,
-				/obj/effect/spawner/lootdrop/f13/armor/tier1 = 10,
+				/obj/effect/spawner/lootdrop/f13/armor/tier1 = 8,
 				/obj/item/stack/f13Cash/random/low = 10,
 				/obj/item/gun/ballistic/automatic/smg/american180 = 1,
-				/obj/effect/spawner/bundle/f13/mini22uzi = 1,
 				/obj/effect/spawner/bundle/f13/sportcarbine = 1,
 				/obj/effect/spawner/bundle/f13/ninemil = 1,
 				/obj/effect/spawner/bundle/f13/widowmaker = 2,
@@ -891,6 +917,7 @@
 				/obj/effect/spawner/lootdrop/f13/weapon/revolver44variants,
 				/obj/effect/spawner/bundle/f13/trenchshotgun,
 				/obj/effect/spawner/bundle/f13/m1carbine,
+				/obj/effect/spawner/bundle/f13/sidewinder,
 				/obj/effect/spawner/bundle/f13/huntingshotgun,
 				/obj/effect/spawner/bundle/f13/revolver45
 		)
@@ -1024,6 +1051,13 @@
 	items = list(
 				/obj/item/gun/ballistic/rifle/hunting,
 				/obj/item/ammo_box/a308
+				)
+
+/obj/effect/spawner/bundle/f13/shotpistol
+	name = "shotpistol and ammo spawner"
+	items = list(
+				/obj/item/gun/ballistic/revolver/shotpistol,
+				/obj/item/ammo_box/shotgun/buck
 				)
 
 /obj/effect/spawner/bundle/f13/n99
@@ -1172,6 +1206,13 @@
 	items = list(
 				/obj/item/gun/ballistic/automatic/m1carbine,
 				/obj/item/ammo_box/magazine/m10mm/adv/simple
+	)
+
+/obj/effect/spawner/bundle/f13/sidewinder
+	name = "sidewinder and ammo spawner"
+	items = list(
+				/obj/item/gun/ballistic/automatic/smg/sidewinder,
+				/obj/item/ammo_box/magazine/m9mm/doublestack
 	)
 
 /obj/effect/spawner/bundle/f13/guns/commando
@@ -1361,7 +1402,7 @@ obj/effect/spawner/bundle/f13/combat_rifle
 	name = "combat rifle and ammo spawner"
 	items = list(
 				/obj/item/gun/ballistic/automatic/combat,
-				/obj/item/ammo_box/magazine/greasegun/
+				/obj/item/ammo_box/magazine/tommygunm45/stick
 				)
 
 /obj/effect/spawner/bundle/f13/rcw
@@ -2154,7 +2195,7 @@ obj/effect/spawner/bundle/f13/combat_rifle
 		/obj/item/advanced_crafting_components/assembly,
 		/obj/item/advanced_crafting_components/alloys,
 		/obj/item/gun_upgrade/scope/watchman,
-		/obj/item/gun_upgrade/trigger/dangerzone,
+		/obj/item/gun_upgrade/trigger/raidertrigger,
 		/obj/item/tool_upgrade/productivity/ergonomic_grip,
 		/obj/item/tool_upgrade/refinement/ported_barrel,
 		/obj/item/tool_upgrade/productivity/red_paint
@@ -2173,7 +2214,7 @@ obj/effect/spawner/bundle/f13/combat_rifle
 		/obj/item/advanced_crafting_components/assembly = 2,
 		/obj/item/advanced_crafting_components/alloys = 2,
 		/obj/item/gun_upgrade/scope/watchman,
-		/obj/item/gun_upgrade/trigger/dangerzone,
+		/obj/item/gun_upgrade/trigger/raidertrigger,
 		/obj/item/tool_upgrade/productivity/ergonomic_grip,
 		/obj/item/tool_upgrade/refinement/ported_barrel,
 		/obj/item/tool_upgrade/productivity/red_paint
@@ -2283,7 +2324,7 @@ obj/effect/spawner/bundle/f13/combat_rifle
 	lootdoubles = FALSE
 	loot = list(
 		/obj/item/gun_upgrade/scope/watchman,
-		/obj/item/gun_upgrade/trigger/dangerzone,
+		/obj/item/gun_upgrade/trigger/raidertrigger,
 		/obj/item/tool_upgrade/productivity/ergonomic_grip,
 		/obj/item/tool_upgrade/refinement/ported_barrel,
 		/obj/item/tool_upgrade/refinement/stabilized_grip,
@@ -2330,3 +2371,20 @@ obj/effect/spawner/bundle/f13/combat_rifle
 			/obj/item/storage/box/ration/ranger_lunch,
 			/obj/item/storage/box/ration/ranger_dinner,
 			)
+
+/obj/effect/spawner/lootdrop/f13/deadantloot //12 out of 22 chance to get ores, 8 / 22 for the jackpot ones
+	name = "dead ant loot"
+	lootcount = 1
+	loot = list(
+		/obj/item/stack/sheet/mineral/sandstone = 1,
+		/obj/item/stack/ore/diamond = 1,
+		/obj/item/stack/ore/uranium = 4,
+		/obj/item/stack/ore/silver = 3,
+		/obj/item/stack/ore/slag = 2,
+		/obj/item/stack/ore/plasma = 3,
+		/obj/item/stack/ore/bluespace_crystal = 1,
+		/obj/item/stack/ore/glass = 2,
+		/obj/item/stack/ore/iron = 2,
+		/obj/item/stack/ore/lead = 1,
+		/obj/item/stack/ore/titanium = 2)
+

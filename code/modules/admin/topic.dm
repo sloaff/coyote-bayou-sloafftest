@@ -534,6 +534,14 @@
 			if("shade")
 				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob )
 
+	/////////////////////////////////////removes player profile pic
+	else if(href_list["removeProfilePic"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(alert(usr, "Are you sure you want to remove their profile picture?", "Confirmation", "Yes", "No") == "Yes")
+			var/mob/living/carbon/human/H = locate(href_list["removeProfilePic"])
+			H.RemoveProfilePic()
 
 	/////////////////////////////////////new ban stuff
 	else if(href_list["unbanf"])
@@ -1403,7 +1411,7 @@
 			qdel(query_get_message_edits)
 			return
 		if(query_get_message_edits.NextRow())
-			var/edit_log = query_get_message_edits.item[1]
+			var/edit_log = unsanitizeSQL(query_get_message_edits.item[1])
 			if(!QDELETED(usr))
 				var/datum/browser/browser = new(usr, "Note edits", "Note edits")
 				browser.set_content(jointext(edit_log, ""))

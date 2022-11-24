@@ -131,7 +131,11 @@
 #define TRAIT_ANTIMAGIC			"anti_magic"
 #define TRAIT_HOLY				"holy"
 #define TRAIT_DEPRESSION		"depression"
+#define TRAIT_PESSIMIST			"pessimist"
 #define TRAIT_JOLLY				"jolly"
+#define TRAIT_OPTIMIST			"optimist"
+#define TRAIT_IN_HEAT			"ERP Receptive"
+#define TRAIT_HEAT_DETECT		"ERP Seeking"
 #define TRAIT_NOCRITDAMAGE		"no_crit"
 #define TRAIT_NOSLIPWATER		"noslip_water"
 #define TRAIT_NOSLIPALL			"noslip_all"
@@ -144,6 +148,12 @@
 #define TRAIT_SIXTHSENSE		"sixthsense"
 #define TRAIT_DISSECTED			"dissected"
 #define TRAIT_FEARLESS			"fearless"
+#define TRAIT_SPIDERPHOBIA		"spiderphobia"
+#define TRAIT_BONERPHOBIA		"skelephobia"
+#define TRAIT_MASKPHOBIA		"maskphobia"
+#define TRAIT_DOCTORPHOBIA		"doctorphobia"
+#define TRAIT_EYEPHOBIA			"eyephobia"
+#define TRAIT_CATPHOBIA			"catphobia"
 #define TRAIT_UNSTABLE			"unstable"
 #define TRAIT_PARALYSIS_L_ARM	"para-l-arm" //These are used for brain-based paralysis, where replacing the limb won't fix it
 #define TRAIT_PARALYSIS_R_ARM	"para-r-arm"
@@ -205,10 +215,15 @@
 #define TRAIT_EMPATH			"empath"
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_BIG_LEAGUES		"big_leagues"
+#define TRAIT_LITTLE_LEAGUES	"little_leagues"
+#define TRAIT_GENTLE			"gentle"
+#define TRAIT_WIMPY				"wimpy"
 #define TRAIT_FEV				"FEV_MUT" //OH BOY
 #define TRAIT_GHOULMELEE		"ghoulmelee"
 #define TRAIT_TRAPPER			"trapper"
 #define TRAIT_IRONFIST			"iron_fist"
+#define TRAIT_STEELFIST			"steel_fist"
+#define TRAIT_NOODLEFIST			"noodle_fist"
 #define TRAIT_POWER_ARMOR		"power_armor"
 #define TRAIT_SNOB				"snob"
 #define TRAIT_CULT_EYES 		"cult_eyes"
@@ -230,6 +245,14 @@
 #define TRAIT_UNARMED_WEAPON	"unarmed_weapon"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"
+#define TRAIT_ILLITERATE "illiterate"
+#define TRAIT_PAPER_SKIN "paper_skin"
+#define TRAIT_GLASS_BONES "glass_bones"
+#define TRAIT_STEEL_ASS "steel_ass"
+#define TRAIT_DISTANT "distant"
+#define TRAIT_HEADPAT_SLUT "headpat_sluuuuut"
+#define TRAIT_HYDRA_HEADS "hydra_heads"
+#define TRAIT_SHELTERED "sheltered"
 
 // mobility flag traits
 // IN THE FUTURE, IT WOULD BE NICE TO DO SOMETHING SIMILAR TO https://github.com/tgstation/tgstation/pull/48923/files (ofcourse not nearly the same because I have my.. thoughts on it)
@@ -272,7 +295,13 @@
 #define TRAIT_CYBERNETICIST_EXPERT	"Cyberneticist Expert" //Can augument people into robots directly
 #define TRAIT_MACHINE_SPIRITS	"machine_spirits" //for tribe unique functions.
 #define TRAIT_HARD_YARDS        "hard_yards" //trekking, removes slowdown on all tiles
-#define	TRAIT_LIFEGIVER			"lifegiver" //boosts HP
+#define	TRAIT_SOFT_YARDS		"soft_yards" //lesser trekking
+#define	TRAIT_SLUG				"slow" //You're a little slow. On your feet, at least.
+#define	TRAIT_SLOWAF			"slower" //Damn boi how'd you even get here, you're slow as SHIT off road
+#define	TRAIT_LIFEGIVER			"lifegiver" //boosts HP by 10
+#define	TRAIT_LIFEGIVERPLUS		"lifegiverplus" //boosts HP by 20
+#define	TRAIT_FLIMSY			"flimsy" //lowers HP by 10
+#define	TRAIT_VERYFLIMSY			"veryflimsy" //lowers HP by 20
 #define TRAIT_MARS_TEACH		"mars_teachings" //for legion unique functions
 #define TRAIT_EXPLOSIVE_CRAFTING "explosive_crafting" //can craft explosives and bombs
 #define TRAIT_ADVANCED_EXPLOSIVE_CRAFTING "advanced explosive crafting" //can craft almost all kinds of explosives
@@ -280,6 +309,8 @@
 #define TRAIT_HEAL_TONGUE "healing tongue"
 /// Lets your tongue apply awful bandages to limbs
 #define TRAIT_BANDAGE_TONGUE "coagulating tongue"
+/// You're hooked on punga!
+#define TRAIT_PUNGAPOWER "pungaful"
 
 #define TRAIT_SURGERY_LOW		"lowsurgery"
 #define TRAIT_SURGERY_MID		"midsurgery"

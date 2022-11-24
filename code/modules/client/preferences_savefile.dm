@@ -262,7 +262,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["auto_ooc"]			>> auto_ooc
 	S["no_tetris_storage"]		>> no_tetris_storage
 
-
+	chat_toggles |= CHAT_LOOC // the LOOC doesn't stop
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
 		var/bacpath = "[path].updatebac" //todo: if the savefile version is higher then the server, check the backup, and give the player a prompt to load the backup
@@ -724,6 +724,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	READ_FILE(S["matchmaking_prefs"], matchmaking_prefs)
 
+	// !! COYOTE SAVE FILE STUFF !!
+	S["profilePicture"] >> profilePicture // Profile picklies
+
+	S["gradient_color"]		>> features_override["grad_color"] // Hair gradients!
+	S["gradient_style"]		>> features_override["grad_style"] // Hair gradients electric boogaloo 2!!
+	S["typing_indicator_sound"]			>> features_speech["typing_indicator_sound"] // Typing sounds!
+	S["typing_indicator_sound_play"]	>> features_speech["typing_indicator_sound_play"] // Typing sounds electric- you know what I'm gonna stop its not funny anymore.
+
 	//try to fix any outdated data if necessary
 	//preference updating will handle saving the updated data for us.
 	if(needs_update >= 0)
@@ -886,6 +894,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	scars_list["4"] = sanitize_text(scars_list["4"])
 	scars_list["5"] = sanitize_text(scars_list["5"])
 
+	// !! COYOTE SANITISATION !!
+	profilePicture = sanitize_text(profilePicture) // If we still have issues loading save files with this then comment this out, IT SHOULD BE A STRING REEEE
+
+	features_override["grad_color"]		= sanitize_hexcolor(features_override["grad_color"], 6, FALSE, default = COLOR_ALMOST_BLACK)
+	features_override["grad_style"]		= sanitize_inlist(features_override["grad_style"], GLOB.hair_gradients, "none")
+
+	features_speech["typing_indicator_sound"]				= sanitize_inlist(features_speech["typing_indicator_sound"], GLOB.typing_indicator_sounds, "Default")
+	features_speech["typing_indicator_sound_play"]			= sanitize_inlist(features_speech["typing_indicator_sound_play"], GLOB.play_methods, "No Sound")
+
+
 	joblessrole	= sanitize_integer(joblessrole, 1, 3, initial(joblessrole))
 	//Validate job prefs
 	for(var/j in job_preferences)
@@ -911,7 +929,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			to_chat(parent, span_warning("You're attempting to save your character a little too fast. Wait half a second, then try again."))
 		return 0
 	if(GetQuirkBalance() < 0)
-		reset_quirks()
+		reset_quirks("balance")
+	if(GetPositiveQuirkCount() > MAX_QUIRKS)
+		reset_quirks("max")
 	savecharcooldown = world.time + PREF_SAVELOAD_COOLDOWN
 	var/savefile/S = new /savefile(path)
 	if(!S)
@@ -1079,6 +1099,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		S["loadout"] << safe_json_encode(list())
 
 	WRITE_FILE(S["matchmaking_prefs"], matchmaking_prefs)
+
+	// !! COYOTE SAVEFILE STUFF !!
+	WRITE_FILE(S["profilePicture"],	profilePicture)
+
+	WRITE_FILE(S["gradient_color"]			, features_override["grad_color"])
+	WRITE_FILE(S["gradient_style"]			, features_override["grad_style"])
+
+	WRITE_FILE(S["typing_indicator_sound"]				, features_speech["typing_indicator_sound"])
+	WRITE_FILE(S["typing_indicator_sound_play"]			, features_speech["typing_indicator_sound_play"])
+
 
 	cit_character_pref_save(S)
 

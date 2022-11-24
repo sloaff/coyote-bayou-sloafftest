@@ -222,7 +222,7 @@ Raider
 	suit = /obj/item/clothing/suit/armor/medium/raider/badlands
 	head = /obj/item/clothing/head/helmet/f13/fiend
 	backpack_contents = list(
-		/obj/item/gun/energy/laser/wattz/magneto = 1,
+		/obj/item/gun/energy/laser/wattzs = 1,
 		/obj/item/gun/energy/laser/wattz = 1,
 		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/reagent_containers/hypospray/medipen/psycho = 3,
@@ -247,9 +247,9 @@ Raider
 	suit = /obj/item/clothing/suit/toggle/labcoat
 	l_hand = /obj/item/storage/backpack/duffelbag/med/surgery
 	r_hand = /obj/item/book/granter/trait/midsurgery
-	suit_store = /obj/item/gun/energy/laser/wattz
+	suit_store = /obj/item/gun/energy/laser/wattzs
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec=1,
+		/obj/item/stock_parts/cell/ammo/ec = 1,
 		/obj/item/reagent_containers/pill/patch/jet = 3,
 		/obj/item/storage/firstaid/ancient = 1,
 		/obj/item/storage/pill_bottle/aranesp = 1,
@@ -291,8 +291,8 @@ Raider
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/exile
 	id = /obj/item/card/id/rusted/brokenholodog
 	backpack_contents = list(
-		/obj/item/gun/energy/laser/pistol=1,
-		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/gun/energy/laser/wattzs = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 1,
 		/obj/item/book/granter/crafting_recipe/blueprint/aep7 = 1,
 		/obj/item/grenade/f13/frag = 2,
 		)
@@ -575,7 +575,7 @@ Raider
 	uniform = /obj/item/clothing/under/misc/pj/blue
 	l_hand = /obj/item/storage/backpack/duffelbag/med/surgery
 	r_hand = /obj/item/book/granter/trait/midsurgery
-	suit_store = /obj/item/gun/energy/laser/wattz/magneto
+	suit_store = /obj/item/gun/energy/laser/wattzs
 	backpack_contents = list(
 		/obj/item/stock_parts/cell/ammo/ec = 1,
 		/obj/item/reagent_containers/pill/patch/jet = 3,
@@ -1095,7 +1095,7 @@ Raider
 	uniform = /obj/item/clothing/under/f13/vault
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/fingerless
-	id = /obj/item/card/id/dogtag/vaultiecard
+	id = /obj/item/card/id/selfassign
 	suit = /obj/item/clothing/suit/suspenders
 	backpack_contents = list(
 		/obj/item/gun/ballistic/automatic/pistol/n99=1,
@@ -1192,9 +1192,9 @@ Raider
 	shoes = /obj/item/clothing/shoes/f13/military
 	head = /obj/item/clothing/head/beret/black
 	gloves = /obj/item/clothing/gloves/f13/military
-	l_hand = /obj/item/gun/energy/laser/wattz
+	l_hand = /obj/item/gun/energy/laser/wattzs
 	backpack_contents = list(
-		/obj/item/stock_parts/cell/ammo/ec=2,
+		/obj/item/stock_parts/cell/ammo/ec = 2,
 		/obj/item/card/id/rusted/brokenholodog = 1,)
 
 /datum/outfit/loadout/eidolon

@@ -1,12 +1,13 @@
 /datum/weather/cold_wave
 	name = "cold wave"
 	desc = "Harsh cold wave will grip an entire area."
-	probability = 7
+	probability = 20
 
 	telegraph_message = span_notice("A chilling and unfamiliar breeze sweeps over the valley.")
 	telegraph_duration = 300
 	telegraph_overlay = "snow_storm"
-	telegraph_sound = 'sound/f13effects/sandstorm_warning.ogg'
+	telegraph_sound = 'sound/f13effects/coldwave.ogg'
+	weather_sound = 'sound/f13effects/coldwave.ogg'
 
 	weather_message = span_notice("The once only chilling breeze outside rapidly falls to an unbearable cold overtime with no signs of stopping. You feel as though you are better off indoors.")
 	weather_overlay = "snow_storm"
@@ -19,6 +20,7 @@
 	area_types = list(/area/f13/wasteland, /area/f13/desert, /area/f13/farm, /area/f13/forest, /area/f13/ruins)
 	protected_areas = list(/area/shuttle)
 	target_trait = ZTRAIT_STATION
+	tag_weather = WEATHER_COLD
 
 	immunity_type = "snow"
 

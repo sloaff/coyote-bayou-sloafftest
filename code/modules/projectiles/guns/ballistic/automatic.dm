@@ -188,7 +188,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = SMG_RECOIL(0.7)
 	init_firemodes = list(
-		FULL_AUTO_1200
+		FULL_AUTO_300
 	)
 
 	is_automatic = TRUE
@@ -240,7 +240,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
-		FULL_AUTO_300,
+		FULL_AUTO_150,
 		BURST_3_ROUND
 	)
 
@@ -291,7 +291,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_firemodes = list(
-		FULL_AUTO_400,
+		FULL_AUTO_150,
 		SEMI_AUTO_NODELAY
 	)
 
@@ -325,7 +325,7 @@
  * * * * * * * * * * */
 
 /obj/item/gun/ballistic/automatic/smg/greasegun/worn
-	name = "beat up 9mm submachine gun"
+	name = "beat up .45ACP submachine gun"
 	desc = "What was once an inexpensive, but reliable submachine gun is now an inexpensive piece of shit. It's impressive this thing still fires at all."
 
 	slowdown = GUN_SLOWDOWN_SMG_LIGHT
@@ -340,7 +340,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
-		FULL_AUTO_300
+		FULL_AUTO_150
 	)
 
 /* * * * * * * * * * *
@@ -376,7 +376,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_firemodes = list(
-		FULL_AUTO_300,
+		FULL_AUTO_200,
 		SEMI_AUTO_NODELAY
 	)
 
@@ -426,7 +426,8 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
-		BURST_5_ROUND
+		FULL_AUTO_150,
+		SEMI_AUTO_NODELAY
 	)
 
 
@@ -463,7 +464,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_firemodes = list(
 		SEMI_AUTO_NODELAY,
-		FULL_AUTO_600
+		FULL_AUTO_200
 	)
 
 	automatic = 1
@@ -503,21 +504,26 @@
 	w_class = WEIGHT_CLASS_BULKY
 	mag_type = /obj/item/ammo_box/magazine/m22/extended
 	init_mag_type = /obj/item/ammo_box/magazine/m22/extended
+	weapon_weight = GUN_ONE_HAND_AKIMBO
 
+	added_spread = GUN_SPREAD_POOR
 	slowdown = GUN_SLOWDOWN_SMG_LIGHT
 	force = GUN_MELEE_FORCE_PISTOL_LIGHT
-	weapon_weight = GUN_ONE_HAND_AKIMBO
 	draw_time = GUN_DRAW_LONG
-	fire_delay = GUN_FIRE_DELAY_FASTER
-	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FASTER
-	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTER
+	fire_delay = GUN_FIRE_DELAY_NORMAL
+	autofire_shot_delay = GUN_AUTOFIRE_DELAY_SLOW
+	burst_shot_delay = GUN_BURSTFIRE_DELAY_SLOW
 	burst_size = 1
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = SMG_RECOIL(0.75)
 	init_firemodes = list(
 		SEMI_AUTO_NODELAY,
-		FULL_AUTO_800
+		FULL_AUTO_200
 	)
+
+	automatic = TRUE
+	automatic_burst_overlay = FALSE
 
 	automatic = 1
 	is_automatic = TRUE
@@ -559,7 +565,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
-		FULL_AUTO_300,
+		FULL_AUTO_200,
 		SEMI_AUTO_NODELAY
 	)
 
@@ -606,7 +612,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		FULL_AUTO_600,
+		FULL_AUTO_200,
 		BURST_5_ROUND
 	)
 
@@ -683,7 +689,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
-		FULL_AUTO_800,
+		FULL_AUTO_200,
 		BURST_3_ROUND,
 		SEMI_AUTO_NODELAY
 	)
@@ -733,7 +739,7 @@
 	damage_multiplier = GUN_LESS_DAMAGE_T3
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_firemodes = list(
-		BURST_5_ROUND,
+		BURST_3_ROUND,
 		SEMI_AUTO_NODELAY
 	)
 
@@ -769,7 +775,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
 	init_firemodes = list(
-		FULL_AUTO_600,
+		FULL_AUTO_200,
 		SEMI_AUTO_NODELAY
 	)
 
@@ -815,10 +821,10 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FASTEST
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTEST
 	burst_size = 1
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_firemodes = list(
-		FULL_AUTO_800
+		FULL_AUTO_300
 	)
 
 	is_automatic = TRUE
@@ -838,6 +844,174 @@
 		SP_DISTANT_SOUND(PISTOL_LIGHT_DISTANT_SOUND),
 		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
 	)
+
+/* * * * * * * * * * *
+ * Sidewinder SMG
+ * Multiammo SMG
+ * 9mm / 10mm / .45 / .22
+ * Click a button while its empty to change what mags it accepts!
+ * Low damage
+ * Two-handed
+ * Slow firing
+ * Inaccurate
+ * Uncommon?
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/smg/sidewinder
+	name = "multi-caliber smg"
+	desc = "The answer to all your ammo-scrounging problems! The TwisTactical Spindoctor SMMG (sub-machine multi-gun) integrates \
+			rotation-reactive metalmers in the upper assembly to change what ammunition it accepts, from .22LR to .45ACP with a \
+			simple twist of the mechanism. Surprisingly easy to maintain and assemble, given the right high-tech Rotosteel parts, \
+			making it a common sight for Boxcar Vixens in the Heap, where the short sightlines more than make up for the gun's \
+			inherently poor accuracy. Doesn't accept awkwardly shaped magazines, though. That's for the PRO model, which isn't \
+			available out here."
+	icon_state = "sidewinder"
+	slowdown = GUN_SLOWDOWN_SMG_LIGHT
+	w_class = WEIGHT_CLASS_BULKY
+	mag_type = /obj/item/ammo_box/magazine/uzim9mm
+	extra_mag_types = /obj/item/ammo_box/magazine/m9mm
+	init_mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
+	var/current_caliber = "9mm"
+	added_spread = GUN_SPREAD_POOR
+	slowdown = GUN_SLOWDOWN_SMG_LIGHT
+	force = GUN_MELEE_FORCE_PISTOL_LIGHT
+	draw_time = GUN_DRAW_LONG
+	fire_delay = GUN_FIRE_DELAY_FAST
+	autofire_shot_delay = GUN_AUTOFIRE_DELAY_NORMAL
+	burst_shot_delay = GUN_BURSTFIRE_DELAY_FAST
+	burst_size = 1
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_firemodes = list(
+		SEMI_AUTO_NODELAY,
+		BURST_3_ROUND
+	)
+
+	is_automatic = TRUE
+	automatic = 1
+
+	gun_tags = list(GUN_SCOPE, GUN_SILENCABLE)
+	can_scope = TRUE
+	scope_state = "AEP7_scope"
+	scope_x_offset = 10
+	scope_y_offset = 22
+	can_flashlight = TRUE
+
+	can_flashlight = TRUE
+	scope_state = "flight"
+	flight_x_offset = 16
+	flight_y_offset = 18
+
+	can_suppress = TRUE
+	suppressor_state = "pistol_suppressor"
+	suppressor_x_offset = 31
+	suppressor_y_offset = 17
+
+	actions_types = list(/datum/action/item_action/toggle_sidewinder)
+	fire_sound = 'sound/f13weapons/9mm.ogg'
+	gun_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(PISTOL_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(PISTOL_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(PISTOL_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(PISTOL_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
+	)
+
+/obj/item/gun/ballistic/automatic/smg/sidewinder/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "-[current_caliber]" : ""][chambered ? "" : "-e"]"
+
+/obj/item/gun/ballistic/automatic/smg/sidewinder/proc/change_ammo(mob/user)
+	if(user)
+		if(magazine)
+			user.show_message(span_alert("[src] needs to be completely unloaded before working the TwistForm mechanism!"))
+			return
+		if(chambered)
+			user.show_message(span_alert("[src] needs to be <u>completely</u> unloaded before working the TwistForm mechanism!"))
+			return
+
+	var/message2self = "You wrench the upper receiver of [src] out of its socket and it one full turn. "
+	var/message2everyone = "[user] spins [user.p_their()] their gun around. It makes a wierd click."
+	allowed_mags = list()
+	switch(current_caliber)
+		if("22LR")
+			current_caliber = "9mm"
+			allowed_mags |= typesof(/obj/item/ammo_box/magazine/m9mm, /obj/item/ammo_box/magazine/uzim9mm)
+			fire_sound = 'sound/f13weapons/9mm.ogg'
+			message2self += "The panel on the side now reads: \"9mm Mode\""
+			gun_sound_properties = list(
+				SP_VARY(FALSE),
+				SP_VOLUME(PISTOL_LIGHT_VOLUME),
+				SP_VOLUME_SILENCED(PISTOL_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+				SP_NORMAL_RANGE(PISTOL_LIGHT_RANGE),
+				SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+				SP_IGNORE_WALLS(TRUE),
+				SP_DISTANT_SOUND(PISTOL_LIGHT_DISTANT_SOUND),
+				SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
+			)
+		if("9mm")
+			current_caliber = "10mm"
+			allowed_mags |= typesof(/obj/item/ammo_box/magazine/m10mm, /obj/item/ammo_box/magazine/cg45)
+			fire_sound = 'sound/f13weapons/10mm_fire_03.ogg'
+			message2self += "The panel on the side now reads: \"10mm Mode\""
+			gun_sound_properties = list(
+				SP_VARY(FALSE),
+				SP_VOLUME(PISTOL_MEDIUM_VOLUME),
+				SP_VOLUME_SILENCED(PISTOL_MEDIUM_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+				SP_NORMAL_RANGE(PISTOL_MEDIUM_RANGE),
+				SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+				SP_IGNORE_WALLS(TRUE),
+				SP_DISTANT_SOUND(PISTOL_MEDIUM_DISTANT_SOUND),
+				SP_DISTANT_RANGE(PISTOL_MEDIUM_RANGE_DISTANT)
+			)
+		if("10mm")
+			current_caliber = "45ACP"
+			allowed_mags |= typesof(/obj/item/ammo_box/magazine/greasegun, /obj/item/ammo_box/magazine/m45, /obj/item/ammo_box/magazine/tommygunm45/stick)
+			fire_sound = 'sound/weapons/gunshot_smg.ogg'
+			message2self += "The panel on the side now reads: \".45ACP Mode\""
+			gun_sound_properties = list(
+				SP_VARY(FALSE),
+				SP_VOLUME(PISTOL_MEDIUM_VOLUME),
+				SP_VOLUME_SILENCED(PISTOL_MEDIUM_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+				SP_NORMAL_RANGE(PISTOL_MEDIUM_RANGE),
+				SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+				SP_IGNORE_WALLS(TRUE),
+				SP_DISTANT_SOUND(PISTOL_MEDIUM_DISTANT_SOUND),
+				SP_DISTANT_RANGE(PISTOL_MEDIUM_RANGE_DISTANT)
+			)
+		if("45ACP")
+			current_caliber = "22LR"
+			allowed_mags |= typesof(/obj/item/ammo_box/magazine/m22)
+			fire_sound = 'sound/f13weapons/ServiceRifle.ogg'
+			message2self += "The panel on the side now reads: \".22LR Mode\""
+			gun_sound_properties = list(
+				SP_VARY(FALSE),
+				SP_VOLUME(PISTOL_LIGHT_VOLUME),
+				SP_VOLUME_SILENCED(PISTOL_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+				SP_NORMAL_RANGE(PISTOL_LIGHT_RANGE),
+				SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+				SP_IGNORE_WALLS(TRUE),
+				SP_DISTANT_SOUND(PISTOL_LIGHT_DISTANT_SOUND),
+				SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
+			)
+	playsound(get_turf(src), 'sound/f13weapons/equipsounds/riflequip.ogg', 60, 1)
+	if(user)
+		user.visible_message(message2everyone,span_notice(message2self))
+
+/obj/item/gun/ballistic/automatic/smg/sidewinder/examine(mob/user)
+	. = ..()
+	switch(current_caliber)
+		if("22LR")
+			. += "<br><span class='notice'>The readout displays \".22LR Mode\", indicating it'll accept most .22 SMG and pistol mags.</span>"
+		if("9mm")
+			. += "<br><span class='notice'>The readout displays \"9mm Mode\", indicating it'll accept most 9mm SMG and pistol mags.</span>"
+		if("10mm")
+			. += "<br><span class='notice'>The readout displays \"10mm Mode\", indicating it'll accept most 10mm SMG and pistol mags.</span>"
+		if("45ACP")
+			. += "<br><span class='notice'>The readout displays \".45ACP Mode\", indicating it'll accept most .45 SMG and pistol mags.</span>"
+	. += "<br><span class='notice'>Unload the gun and click the action button to change the caliber.</span>"
 
 /* * * * * * *
  * Carbines  *
@@ -1126,6 +1300,66 @@
 	)
 
 /* * * * * * * * * * *
+ * Worn Combat Carbine
+ * Slightly softer .45 carbine
+ * Less damage
+ * less accurate
+ * Powerful melee
+ * With love
+ * Common
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/combat/worn/brim
+	name = "Worn Combat Carbine"
+	desc = "A well loved .45 semi-automatic combat carbine, with so many parts replaced and fixed up that it wouldn't give the artisan who \
+		maintained this thing enough credit to say it's a pre-war design. Covered in forge marks where repairs were needed. While everything \
+		looks to be of high-quality crafting, the precision of such parts look a bit... off, like a master swordsmith were asked to forge a \
+		gun by hand. As such, the internal mechanisms and rifling are not <i>quite</i> the right size for a .45ACP round, and the sight \
+		picture is a bit <i>Fuzzy</i>. Every part is, however, built as rugged as its maker, and can be used as a very effective melee \
+		weapon without any risk of damaging it."
+	icon_state = "combat_rifle"
+	item_state = "combatrifle"
+	icon_prefix = "combatrifle"
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
+	mag_type = /obj/item/ammo_box/magazine/tommygunm45
+	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
+
+	slowdown = GUN_SLOWDOWN_CARBINE
+	force = GUN_MELEE_FORCE_RIFLE_HEAVIER
+	weapon_weight = GUN_ONE_HAND_ONLY
+	draw_time = GUN_DRAW_LONG
+	fire_delay = GUN_FIRE_DELAY_NORMAL
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	init_recoil = CARBINE_RECOIL(1)
+	added_spread = GUN_SPREAD_POOR
+
+/* * * * * * * * * * *
+ * Worn Combat Carbine
+ * Slightly softer .45 carbine
+ * Less damage
+ * less accurate
+ * * * * * * * * * * */
+
+/obj/item/gun/ballistic/automatic/combat/worn
+	name = "Combat Carbine"
+	desc = "A .45 semi-automatic combat carbine, produced pre-war for National Guard forces. This one seems aged..."
+	icon_state = "combat_rifle"
+	item_state = "combatrifle"
+	icon_prefix = "combatrifle"
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
+	mag_type = /obj/item/ammo_box/magazine/tommygunm45
+	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
+
+	slowdown = GUN_SLOWDOWN_CARBINE
+	force = GUN_MELEE_FORCE_RIFLE_LIGHT
+	weapon_weight = GUN_ONE_HAND_ONLY
+	draw_time = GUN_DRAW_LONG
+	fire_delay = GUN_FIRE_DELAY_NORMAL
+	damage_multiplier = GUN_LESS_DAMAGE_T2
+	init_recoil = CARBINE_RECOIL(1)
+	added_spread = GUN_SPREAD_POOR
+
+/* * * * * * * * * * *
  * 10/22ish carbine
  * .22 LR
  * Higher damage
@@ -1201,10 +1435,22 @@
 	mag_type = /obj/item/ammo_box/magazine/m22
 	init_mag_type = /obj/item/ammo_box/magazine/m22/extended
 
+	slowdown = GUN_SLOWDOWN_CARBINE
+	force = GUN_MELEE_FORCE_RIFLE_LIGHT
+	draw_time = GUN_DRAW_LONG
+	fire_delay = GUN_FIRE_DELAY_NORMAL
+	autofire_shot_delay = GUN_AUTOFIRE_DELAY_SLOW
+	burst_shot_delay = GUN_BURSTFIRE_DELAY_SLOW
+	burst_size = 1
+	damage_multiplier = GUN_EXTRA_DAMAGE_T1 // its a weakass cartridge
+	cock_delay = GUN_COCK_RIFLE_BASE
+	init_recoil = CARBINE_RECOIL(1.2)
 	init_firemodes = list(
 		SEMI_AUTO_NODELAY,
 		FULL_AUTO_200
 	)
+
+	max_upgrades = 3
 
 	automatic = TRUE
 	automatic_burst_overlay = FALSE
@@ -2115,11 +2361,11 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FASTER
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTER
 	burst_size = 1
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
-		FULL_AUTO_200,
+		FULL_AUTO_150,
 		SEMI_AUTO_NODELAY
 	)
 
@@ -2162,11 +2408,11 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FASTER
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTER
 	burst_size = 1
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1)
 	init_firemodes = list(
-		FULL_AUTO_300,
+		FULL_AUTO_200,
 		SEMI_AUTO_NODELAY
 	)
 
@@ -2213,11 +2459,11 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FASTER
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTER
 	burst_size = 1
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
-		FULL_AUTO_400,
+		FULL_AUTO_200,
 		SEMI_AUTO_NODELAY
 	)
 
@@ -2263,11 +2509,12 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FASTER
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTER
 	burst_size = 1
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
-		FULL_AUTO_300
+		FULL_AUTO_200,
+		SEMI_AUTO_NODELAY
 	)
 
 	semi_auto = TRUE
@@ -2396,12 +2643,12 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FAST
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FAST
 	burst_size = 1
-	damage_multiplier = GUN_EXTRA_DAMAGE_T3
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
-		FULL_AUTO_1000,
-		BURST_10_ROUND
+		FULL_AUTO_300,
+		BURST_2_ROUND
 	)
 
 	is_automatic = TRUE
@@ -2444,12 +2691,13 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FASTER
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTER
 	burst_size = 1
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = CARBINE_RECOIL(1)
 	init_firemodes = list(
-		FULL_AUTO_300,
-		BURST_3_ROUND
+		FULL_AUTO_200,
+		BURST_3_ROUND,
+		SEMI_AUTO_NODELAY
 	)
 	gun_tags = list(GUN_FA_MODDABLE, GUN_SCOPE)
 	is_automatic = TRUE
@@ -2501,11 +2749,11 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FASTER
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FASTER
 	burst_size = 1
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1)
 	init_firemodes = list(
-		FULL_AUTO_400,
+		FULL_AUTO_200,
 		SEMI_AUTO_NODELAY
 	)
 	gun_tags = list(GUN_SCOPE)
@@ -2563,17 +2811,17 @@
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FAST
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FAST
 	burst_size = 1
-	damage_multiplier = GUN_LESS_DAMAGE_T4 // 57 damage per shot, full auto, great grouping? not on my watch!
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
-		FULL_AUTO_200,
+		FULL_AUTO_150,
 		SEMI_AUTO_NODELAY
 	)
 
 	is_automatic = TRUE
 	automatic = 1
-	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	fire_sound = 'sound/f13weapons/automaticrifle_BAR.ogg'
 	gun_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(RIFLE_MEDIUM_VOLUME),
@@ -2643,7 +2891,7 @@ obj/item/gun/ballistic/automatic/bar
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.3)
 	init_firemodes = list(
-		FULL_AUTO_300,
+		FULL_AUTO_150,
 		SEMI_AUTO_NODELAY
 	)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -2688,7 +2936,7 @@ obj/item/gun/ballistic/automatic/bar
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
-		BURST_5_ROUND,
+		BURST_3_ROUND_RAPID,
 		SEMI_AUTO_NODELAY
 	)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -2738,7 +2986,7 @@ obj/item/gun/ballistic/automatic/bar
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = CARBINE_RECOIL(1.2)
 	init_firemodes = list(
-		FULL_AUTO_400,
+		FULL_AUTO_200,
 		BURST_3_ROUND
 	)
 
@@ -2799,7 +3047,7 @@ obj/item/gun/ballistic/automatic/bar
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(1)
 	init_firemodes = list(
-		FULL_AUTO_400
+		FULL_AUTO_200
 	)
 
 	is_automatic = TRUE
@@ -2847,7 +3095,7 @@ obj/item/gun/ballistic/automatic/bar
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(1)
 	init_firemodes = list(
-		FULL_AUTO_600
+		FULL_AUTO_200
 	)
 
 	is_automatic = TRUE
@@ -2898,7 +3146,7 @@ obj/item/gun/ballistic/automatic/bar
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(1.2)
 	init_firemodes = list(
-		FULL_AUTO_400
+		FULL_AUTO_200
 	)
 
 	is_automatic = TRUE
@@ -3039,11 +3287,11 @@ obj/item/gun/ballistic/automatic/bar
 	autofire_shot_delay = GUN_AUTOFIRE_DELAY_FAST
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FAST
 	burst_size = 1
-	damage_multiplier = GUN_EXTRA_DAMAGE_T3
+	damage_multiplier = GUN_EXTRA_DAMAGE_T1
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(0.6)
 	init_firemodes = list(
-		FULL_AUTO_600,
+		FULL_AUTO_200,
 		BURST_3_ROUND,
 		SEMI_AUTO_NODELAY
 	)

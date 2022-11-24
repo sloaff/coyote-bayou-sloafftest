@@ -43,8 +43,11 @@
 				gun_tags |= GUN_INTERNAL_MAG
 	allowed_mags |= mag_type
 	allowed_mags |= subtypesof(mag_type)
-	if(LAZYLEN(extra_mag_types))
-		allowed_mags |= extra_mag_types
+	if(extra_mag_types)
+		if(islist(extra_mag_types) && LAZYLEN(extra_mag_types))
+			allowed_mags |= extra_mag_types
+		else if (ispath(extra_mag_types))
+			allowed_mags |= typesof(extra_mag_types)
 	if(LAZYLEN(disallowed_mags))
 		allowed_mags -= disallowed_mags
 	chamber_round()
@@ -92,25 +95,30 @@
 				return TRUE
 			if(magazine.fixed_mag) // fixed mag, just load bullets in
 				magazine.load_from_casing(A, user, FALSE)
-				update_icon()
 				chamber_round(0)
+				update_icon()
 				return TRUE
 
 	if(istype(A, /obj/item/ammo_box))
 		var/obj/item/ammo_box/new_mag = A
 		if(magazine?.fixed_mag) // fixed mag, just load bullets in
 			magazine.load_from_box(A, user, FALSE)
-			update_icon()
 			chamber_round(0)
+			update_icon()
 			return TRUE
 		// removable mag, eject the mag
 		if(!is_magazine_allowed(new_mag, user)) // But only if the new mag would fit
 			return FALSE
+		var/obj/item/ammo_box/oldmag
 		if(istype(magazine))
-			attack_self(user) //stop ejecting perfectly good shells!
+			oldmag = magazine
+			eject_magazine(user, en_bloc, !en_bloc, TRUE) //stop ejecting perfectly good shells!
 		if(user.transferItemToLoc(new_mag, src))
 			magazine = new_mag
-			to_chat(user, span_notice("You load a new magazine into \the [src]."))
+			if(oldmag && user.put_in_hands(oldmag))
+				to_chat(user, span_notice("You load a new magazine into \the [src], keeping hold of the old one."))
+			else
+				to_chat(user, span_notice("You load a new magazine into \the [src]."))
 		else
 			to_chat(user, span_warning("You cannot seem to get \the [new_mag] out of your hands!"))
 			return FALSE
@@ -352,5 +360,5 @@
 			if(GUN_EJECTOR_LEFT)
 				return turn(user.dir, -90)
 			if(GUN_EJECTOR_ANY)
-				return turn(user.dir, pick(-90, 90))
+				return turn(user.dir, pick(0, -90, 90, 180))
 	return angle2dir_cardinal(rand(0,360)) // something fucked up, just send a direction

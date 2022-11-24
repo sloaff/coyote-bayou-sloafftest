@@ -193,6 +193,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//Quirk list
 	var/list/all_quirks = list()
 
+	//Quirk category currently selected
+	var/quirk_category = QUIRK_POSITIVE 
+
 	//Job preferences 2.0 - indexed by job title , no key or value implies never
 	var/list/job_preferences = list()
 
@@ -385,6 +388,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			else
 				dat += "<b>Loading matchmaking preferences...</b><br>"
 				dat += "<b>Refresh once the game has finished setting up...</b><br>"
+			dat += "</td>"
+
+			dat += "<b>Profile Picture:</b><BR>"
+			dat += "<b>Picture:</b> <a href='?_src_=prefs;preference=ProfilePicture;task=input'>[profilePicture ? "<img src=[DiscordLink(profilePicture)] width='125' height='auto' max-height='300'>" : "Upload a picture!"]</a><BR>"
 			dat += "</td>"
 
 /*
@@ -1415,16 +1422,22 @@ Records disabled until a use for them is found
 		dat += "<hr>"
 		dat += "<center><b>Current quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
 		dat += "<center>[GetPositiveQuirkCount()] / [MAX_QUIRKS] max positive quirks<br>\
-		<b>Quirk balance remaining:</b> [GetQuirkBalance()]</center><br>"
+		<b>Quirk balance remaining:</b> [GetQuirkBalance()]<br>"
+		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_POSITIVE]' [quirk_category == QUIRK_POSITIVE ? "class='linkOn'" : ""]>[QUIRK_POSITIVE]</a> "
+		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_NEUTRAL]' [quirk_category == QUIRK_NEUTRAL ? "class='linkOn'" : ""]>[QUIRK_NEUTRAL]</a> "
+		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_NEGATIVE]' [quirk_category == QUIRK_NEGATIVE ? "class='linkOn'" : ""]>[QUIRK_NEGATIVE]</a> "
+		dat += "</center><br>"
 		for(var/V in SSquirks.quirks)
 			var/datum/quirk/T = SSquirks.quirks[V]
+			var/value = initial(T.value)
+			if((value > 0 && quirk_category != QUIRK_POSITIVE) || (value < 0 && quirk_category != QUIRK_NEGATIVE) || (value == 0 && quirk_category != QUIRK_NEUTRAL))
+				continue
+
 			var/quirk_name = initial(T.name)
 			var/has_quirk
 			var/quirk_cost = initial(T.value) * -1
 			var/lock_reason = "This trait is unavailable."
 			var/quirk_conflict = FALSE
-			if(initial(T.locked))
-				quirk_conflict = TRUE
 			for(var/_V in all_quirks)
 				if(_V == quirk_name)
 					has_quirk = TRUE
@@ -1441,7 +1454,7 @@ Records disabled until a use for them is found
 				quirk_cost = "+[quirk_cost]"
 			var/font_color = "#AAAAFF"
 			if(initial(T.value) != 0)
-				font_color = initial(T.value) > 0 ? "#AAFFAA" : "#FFAAAA"
+				font_color = value > 0 ? "#AAFFAA" : "#FFAAAA"
 			if(quirk_conflict)
 				dat += "<font color='[font_color]'>[quirk_name]</font> - [initial(T.desc)] \
 				<font color='red'><b>LOCKED: [lock_reason]</b></font><br>"
@@ -1460,6 +1473,8 @@ Records disabled until a use for them is found
 	popup.set_content(dat.Join())
 	popup.open(0)
 	return
+
+
 
 /datum/preferences/proc/SetSpecial(mob/user)
 //	if(!SSquirks)
@@ -1493,7 +1508,7 @@ Records disabled until a use for them is found
 	return
 
 /datum/preferences/proc/GetQuirkBalance()
-	var/bal = CONFIG_GET(number/quirk_points)
+	var/bal = 5
 	for(var/V in all_quirks)
 		var/datum/quirk/T = SSquirks.quirks[V]
 		bal -= initial(T.value)
@@ -1525,7 +1540,7 @@ Records disabled until a use for them is found
 			qdel(query_get_jobban)
 			return
 		if(query_get_jobban.NextRow())
-			var/reason = query_get_jobban.item[1]
+			var/reason = unsanitizeSQL(query_get_jobban.item[1])
 			var/bantime = query_get_jobban.item[2]
 			var/duration = query_get_jobban.item[3]
 			var/expiration_time = query_get_jobban.item[4]
@@ -1602,6 +1617,12 @@ Records disabled until a use for them is found
 			else
 				SetQuirks(user)
 		return TRUE
+
+	else if(href_list["quirk_category"])
+		var/temp_quirk_category = href_list["quirk_category"]
+		if(temp_quirk_category == QUIRK_POSITIVE || temp_quirk_category == QUIRK_NEUTRAL || temp_quirk_category == QUIRK_NEGATIVE)
+			quirk_category = temp_quirk_category
+			SetQuirks(user)
 
 	else if(href_list["preference"] == "special")
 		switch(href_list["task"])
@@ -2981,6 +3002,7 @@ Records disabled until a use for them is found
 				if("tab")
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
+	chat_toggles |= CHAT_LOOC // the LOOC stays on during sex
 	if(href_list["preference"] == "gear")
 		if(href_list["clear_loadout"])
 			loadout_data["SAVE_[loadout_slot]"] = list()
@@ -3280,10 +3302,17 @@ Records disabled until a use for them is found
 	if(find_gear)
 		loadout_data["SAVE_[save_slot]"] -= list(find_gear)
 
-/datum/preferences/proc/reset_quirks()
+/datum/preferences/proc/reset_quirks(why)
 	all_quirks = list()
 	if(istype(parent))
-		to_chat(parent, span_warning("Your quirk balance was invalid, and has been reset! You'll need to set up your quirks again."))
+		switch(why)
+			if("balance")
+				to_chat(parent, span_userdanger("Your quirk balance was invalid! Your quirks have been reset, and you'll need to set up your quirks again."))
+			if("max")
+				to_chat(parent, span_userdanger("Your character had too many positive quirks, likely due to a bug! Your quirks have been reset, and you'll need to set up your quirks again."))
+			else
+				to_chat(parent, span_userdanger("Something went wrong! Your quirks have been reset, and you'll need to set up your quirks again."))
+
 
 #undef DEFAULT_SLOT_AMT
 #undef HANDS_SLOT_AMT
