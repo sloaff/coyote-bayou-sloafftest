@@ -173,9 +173,9 @@
 	name = "Bar"
 	icon_state = "bar"
 	ambience_area = list(
-		/datum/looping_sound/ambient/radiomusic,
-		/datum/looping_sound/ambient/radiostatic,
-		/datum/looping_sound/ambient/djswampass,
+		///datum/looping_sound/ambient/radiomusic,
+		///datum/looping_sound/ambient/radiostatic,
+		///datum/looping_sound/ambient/djswampass,
 		/datum/looping_sound/ambient/town,
 		/datum/looping_sound/ambient/woodcreak,
 	)
@@ -302,7 +302,7 @@
 	blob_allowed = 0
 	environment = 5
 	grow_chance = 5
-	weather_tags = list(WEATHER_ALL)
+
 
 /area/f13/shack
 	name = "Shack"

@@ -67,8 +67,8 @@
 	burst_shot_delay = GUN_BURSTFIRE_DELAY_FAST
 	burst_size = 1
 	init_firemodes = list(
-		FULL_AUTO_400,
-		WEAPON_NORMAL
+		/datum/firemode/automatic/rpm400,
+		/datum/firemode/semi_auto
 	)
 
 /datum/gear/donator/risingstarslash
@@ -376,14 +376,13 @@
 	ckeywhitelist = list("fuzlet", "superlagg")
 
 /obj/item/storage/box/large/custom_kit/fuzlet/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/sportcarbine/m1_22(src)
-	new /obj/item/ammo_box/magazine/m22/extended(src)
+	new /obj/item/gun/ballistic/automatic/pistol/sig/blackkite(src)
+	new /obj/item/gun/ballistic/automatic/pistol/sig/blackkite(src)
 	new /obj/item/card/fuzzy_license(src)
 	new /obj/item/toy/crayon/orange(src)
 	new /obj/item/geiger_counter(src)
 	new /obj/item/toy/plush/mammal/wolf/blue(src)
-	new /obj/item/choice_beacon/box/carpet(src)
-	new /obj/item/gun/energy/laser/plasma/pistol/adam(src)
+	new /obj/item/toy/plush/mammal/fox/fuzzy(src)
 
 /datum/gear/donator/kits/fuzlet2
 	name = "Smolfox Kit"
@@ -495,8 +494,8 @@
 	ckeywhitelist = list("lucine")
 
 /obj/item/storage/box/large/custom_kit/lucine/PopulateContents()
-	new /obj/item/gun/energy/laser/pistol(src)
-	new /obj/item/gun/energy/laser/pistol(src)
+	new /obj/item/gun/energy/laser/freeblade(src)
+	new /obj/item/gun/energy/laser/freeblade(src)
 	new /obj/item/stock_parts/cell/ammo/ec(src)
 	new /obj/item/stock_parts/cell/ammo/ec(src)
 	new /obj/item/clothing/gloves/ring/plasma/lucine(src)
@@ -619,6 +618,8 @@
 	new /obj/item/reagent_containers/food/snacks/grown/poppy/geranium/forgetmenot(src)
 	new /obj/item/lighter/fusion(src)
 	new /obj/item/melee/onehanded/knife/trench(src)
+	new /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nukadark(src)
+	new /obj/item/gun/ballistic/automatic/smg/sidewinder/worn(src)
 
 /datum/gear/donator/kits/risingstarslash2
 	name = "Slime Cookie Kit"
@@ -628,6 +629,9 @@
 /obj/item/storage/box/large/custom_kit/risingstarslash2/PopulateContents()
 	new /obj/item/book/granter/crafting_recipe/slimecookie(src)
 	new /obj/item/lighter/slime(src)
+	new /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nukagrape(src)
+	new /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nukaorange(src)
+	new /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nukacherry(src)
 
 /datum/gear/donator/kits/risingstarslash3
 	name = "Head Paladin Kit"
@@ -635,7 +639,7 @@
 	ckeywhitelist = list("risingstarslash")
 
 /obj/item/storage/box/large/custom_kit/risingstarslash3/PopulateContents()
-	new /obj/item/lighter/gold (src)
+	new /obj/item/lighter/gold(src)
 	new /obj/item/gun/ballistic/automatic/pistol/n99/crusader(src)
 	new /obj/item/card/id/dogtag/risingstarslash(src)
 
@@ -673,12 +677,23 @@
 /datum/gear/donator/kits/seermankhajiit002
 	name = "Sovietcat Kit"
 	path = /obj/item/storage/box/large/custom_kit/seermankhajiit002
-	ckeywhitelist = list("seermankhajiit00")
+	ckeywhitelist = list("seermankhajiit00", "superlagg")
 
 /obj/item/storage/box/large/custom_kit/seermankhajiit002/PopulateContents()
 	new /obj/item/storage/belt/shoulderholster/ranger45(src)
 	new /obj/item/clothing/under/costume/soviet(src)
+//	new /obj/item/storage/box/rocketlauncher_tox(src) //locked away 'til the end days or until someone figures out how to balance it
+	new /obj/item/pet_carrier/paws(src)
 	new /obj/item/binoculars(src)
+
+/obj/item/pet_carrier/paws
+	name = "Paws' carrier"
+	desc = "Hey look who it is!"
+
+/obj/item/pet_carrier/paws/Initialize()
+	. = ..()
+	var/mob/living/simple_animal/pet/fox/paws/pet_paws = new(src)
+	add_occupant(pet_paws)
 
 /datum/gear/donator/kits/sloaff
 	name = "Leo's Kit"
@@ -702,6 +717,18 @@
 	new /obj/item/clothing/mask/surgical/sloaff(src)
 	new /obj/item/lighter/fusion(src)
 	new /obj/item/reagent_containers/pill/patch/jet(src)
+	new /obj/item/gun/energy/laser/badlands/worn(src)
+
+/datum/gear/donator/kits/sloaff3
+	name = "Sloan's Food Pack"
+	path = /obj/item/storage/box/large/custom_kit/sloaff3
+	ckeywhitelist = list("sloaff")
+
+/obj/item/storage/box/large/custom_kit/sloaff3/PopulateContents()
+	new /obj/item/storage/fancy/cigarettes/cigpack_cannabis(src)
+	new /obj/item/reagent_containers/food/drinks/drinkingglass/filled/nukaberry(src)
+	new /obj/item/reagent_containers/food/snacks/jellysandwich/pbj/cherry(src)
+	new /obj/item/reagent_containers/food/drinks/flask/vault13(src)
 
 /datum/gear/donator/kits/soulwinter446
 	name = "Shocome's relic cross"
@@ -812,6 +839,35 @@
 	new /obj/item/lockpick_set(src)
 	new /obj/item/lockpick_set(src)
 
+/datum/gear/donator/kits/tonyburritos
+	name = "NCR Scout"
+	path = /obj/item/storage/box/large/custom_kit/tonyburritos
+	ckeywhitelist = list("tonyburritos")
+
+/obj/item/storage/box/large/custom_kit/tonyburritos/PopulateContents()
+	new /obj/item/clothing/gloves/f13/leather/fingerless(src)
+	new /obj/item/clothing/under/f13/ncr(src)
+	new /obj/item/clothing/shoes/f13/military/ncr(src)
+	new /obj/item/clothing/head/f13/ncr/ncr_flapcap(src)
+	new /obj/item/clothing/suit/armor/light/leather(src)
+	new /obj/item/clothing/mask/ncr_facewrap(src)
+
+/datum/gear/donator/kits/tonyburritos2
+	name = "Traveling Ranger"
+	path = /obj/item/storage/box/large/custom_kit/tonyburritos2
+	ckeywhitelist = list("tonyburritos")
+
+/obj/item/storage/box/large/custom_kit/tonyburritos2/PopulateContents()
+	new /obj/item/clothing/suit/armor/medium/combat/desert_ranger(src)
+	new /obj/item/clothing/under/f13/ranger/modif_ranger(src)
+	new /obj/item/clothing/accessory/ranger(src)
+	new /obj/item/clothing/gloves/f13/leather/fingerless(src)
+	new /obj/item/clothing/mask/bandana/legion/legprime(src)
+	new /obj/item/clothing/shoes/f13/military/desert(src)
+	new /obj/item/clothing/head/helmet/f13/ncr/rangercombat/desert(src)
+	new /obj/item/clothing/head/helmet/f13/ncr/rangercombat/desert/whiskey(src)
+	new /obj/item/gun/ballistic/revolver/revolver45(src)
+
 /datum/gear/donator/kits/truedark
 	name = "Stolen Brotherhood Supplies"
 	path = /obj/item/storage/box/large/custom_kit/truedark
@@ -822,6 +878,7 @@
 	new /obj/item/stock_parts/cell/ammo/ec(src)
 	new /obj/item/stock_parts/cell/ammo/ec(src)
 	new /obj/item/stack/cable_coil/thirty(src)
+	new /obj/item/gun/energy/laser/rcw/nayriin(src)
 	new /obj/item/weldingtool/largetank/cylphie(src)
 
 /datum/gear/donator/kits/truedark2
@@ -833,7 +890,6 @@
 	new /obj/item/gun/ballistic/bow/xbow(src)
 	new /obj/item/storage/bag/tribe_quiver/archer(src)
 	new /obj/item/smelling_salts/wayfarer(src)
-	new /obj/item/gun/energy/laser/rcw/nayriin(src)
 	new /obj/item/reagent_containers/glass/bottle/gaia(src)
 	new /obj/item/reagent_containers/glass/bottle/ichor/red(src)
 	new /obj/item/reagent_containers/glass/bottle/ichor/blue(src)

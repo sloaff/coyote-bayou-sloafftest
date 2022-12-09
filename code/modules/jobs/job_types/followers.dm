@@ -12,8 +12,9 @@
 	name =		"FOLLOWERSdatums"
 	jobtype =	/datum/job/followers/
 	shoes =		/obj/item/clothing/shoes/sneakers/black
+	belt = /obj/item/kit_spawner/follower
 	id =		null
-	ears =		/obj/item/radio/headset/headset_followers
+	ears =		/obj/item/radio/headset/headset_town/medical
 	uniform =	/datum/outfit/job/followers/f13followers
 
 /datum/outfit/job/followers/f13followers
@@ -36,7 +37,7 @@
 Administrator
 */
 /datum/job/followers/f13leadpractitioner
-	title = "Followers Administrator"
+	title = "Senior Doctor"
 	flag = F13LEADPRACTITIONER
 	department_flag = FOLLOWERS
 	head_announce = list("Security")
@@ -44,7 +45,7 @@ Administrator
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "No one."
-	description = "You are the Followers Administrator. You are the administrator, supervisor and director for the on-site followers and the facility. While there is no tradtional chain of command that is used, you have been chosen to lead due to your expert knowledge in the field of medicine and other general knowledges. Make sure that the supplies donated are being put to use, help secure more donations, and fill in as needed whenever short staffed or if the clinic is busy."
+	description = "You are the Senior Doctor. You are the supervisor and director for the on-site followers and the facility. While there is no tradtional chain of command that is used, you have been chosen to lead due to your expert knowledge in the field of medicine and other general knowledges. Make sure that the supplies donated are being put to use, help secure more donations, and fill in as needed whenever short staffed or if the clinic is busy."
 	forbids = "Causing harm to others except in times of self-defense. Leaving the hospital without a plan or being accompanied by a guard. Treating raiders or slavers without a good reason."
 	enforces = "Preach the values of the Followers of Apocolypse. Assist and provide medical services to those in need. Provide free education for all those who are willing to learn."
 	selection_color = "#FF95FF"
@@ -87,14 +88,14 @@ Administrator
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 
 /datum/outfit/job/followers/f13leadpractitioner
-	name =	"Followers Administrator"
+	name =	"Senior Doctor"
 	jobtype =	/datum/job/followers/f13leadpractitioner
 	id =	/obj/item/card/id/silver
 	chemwhiz =	TRUE
 	uniform =	/obj/item/clothing/under/f13/followers
 	suit=	/obj/item/clothing/suit/toggle/labcoat/followers
 	shoes =	/obj/item/clothing/shoes/f13/brownie
-	belt =	/obj/item/healthanalyzer/advanced
+	belt = /obj/item/kit_spawner/follower/admin
 	backpack =	/obj/item/storage/backpack/medic
 	satchel =	/obj/item/storage/backpack/satchel/med
 	duffelbag =	/obj/item/storage/backpack/duffelbag/med
@@ -104,6 +105,7 @@ Administrator
 		/obj/item/reagent_containers/medspray/synthflesh = 2,
 		/obj/item/clothing/glasses/hud/health = 1,
 		/obj/item/book/granter/trait/techno = 1,
+		/obj/item/healthanalyzer/advanced = 1,
 	)
 
 /datum/outfit/loadout/surgical_specialist
@@ -132,7 +134,7 @@ Administrator
 //Professor
 
 /datum/job/followers/f13Professor
-	title = "Followers Scientist"
+	title = "Town Scientist"
 	flag = F13PRACTITIONER
 	department_flag = FOLLOWERS
 	faction = "Followers"
@@ -177,17 +179,18 @@ Administrator
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 
 /datum/outfit/job/followers/f13Professor
-	name = "Followers Scientist"
+	name = "Town Scientist"
 	jobtype = /datum/job/followers/f13Professor
 	backpack = /obj/item/storage/backpack/explorer
 	uniform = /obj/item/clothing/under/f13/followers
 	suit= /obj/item/clothing/suit/toggle/labcoat/followers
-	belt =/obj/item/storage/belt/utility/full/engi
+	belt = /obj/item/kit_spawner/follower/scientist
 	id = /obj/item/card/id/silver
 	glasses = /obj/item/clothing/glasses/science
 	chemwhiz = TRUE
 	backpack_contents = list(
 		/obj/item/storage/survivalkit/medical/follower = 1,
+		/obj/item/storage/belt/utility/full/engi = 1,
 		/obj/item/storage/firstaid/ancient=1,)
 
 /datum/outfit/loadout/environmental_scientist
@@ -216,7 +219,7 @@ Administrator
 Practitioner
 */
 /datum/job/followers/f13practitioner
-	title = "Followers Doctor"
+	title = "Town Doctor"
 	flag = F13PRACTITIONER
 	department_flag = FOLLOWERS
 	faction = "Followers"
@@ -276,13 +279,13 @@ Practitioner
 
 
 /datum/outfit/job/followers/f13practitioner
-	name =	"Followers Doctor"
+	name =	"Town Doctor"
 	jobtype =	/datum/job/followers/f13practitioner
 	uniform =	/obj/item/clothing/under/f13/followers
 	id =	/obj/item/card/id/silver
 	chemwhiz =	TRUE
 	backpack =	/obj/item/storage/backpack/medic
-	belt = /obj/item/gun/energy/laser/complianceregulator
+	belt = /obj/item/kit_spawner/follower/doctor
 	satchel =	/obj/item/storage/backpack/satchel/med
 	duffelbag =	/obj/item/storage/backpack/duffelbag/med
 	backpack_contents = list(
@@ -290,6 +293,7 @@ Practitioner
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/reagent_containers/medspray/synthflesh = 1,
 		/obj/item/storage/firstaid/ancient = 1,
+		/obj/item/gun/energy/laser/complianceregulator = 1,
 	)
 
 /datum/outfit/loadout/physician
@@ -341,7 +345,7 @@ Follower Volunteer
 */
 
 /datum/job/followers/f13followervolunteer
-	title = "Followers Volunteer"
+	title = "Town Medical Assistant"
 	flag = F13FOLLOWERVOLUNTEER
 	department_flag = FOLLOWERS
 	faction = "Followers"
@@ -374,9 +378,10 @@ Follower Volunteer
 	//the follower volunteer doesn't need more access as it is already stored in the /datum/job/followers
 
 /datum/outfit/job/followers/f13followervolunteer
-	name = "Followers Volunteer"
+	name = "Town Medical Assistant"
 	jobtype = /datum/job/followers/f13followervolunteer
 	id = 		/obj/item/card/id/silver
+	belt = /obj/item/kit_spawner/follower
 	uniform = 	/obj/item/clothing/under/f13/followers
 	shoes = 	/obj/item/clothing/shoes/f13/explorer
 	backpack = 	/obj/item/storage/backpack/explorer
@@ -430,7 +435,7 @@ Follower Volunteer
 // Follower Guard
 
 /datum/job/followers/f13followerguard
-	title = "Followers Guard"
+	title = "Town Paramedic"
 	flag = F13FOLLOWERGUARD
 	department_flag = FOLLOWERS
 	faction = "Followers"
@@ -444,16 +449,20 @@ Follower Volunteer
 
 	outfit = /datum/outfit/job/followers/f13followerguard
 
-	loadout_options = list(/datum/outfit/loadout/guard_ranged,
-	/datum/outfit/loadout/guard_close, /datum/outfit/loadout/guard_energy
+/*
+	loadout_options = list(
+		/datum/outfit/loadout/guard_ranged,
+		/datum/outfit/loadout/guard_close, 
+		/datum/outfit/loadout/guard_energy
 	)
+	*/
 	access = list(ACCESS_FOLLOWER, ACCESS_MILITARY)
 	minimal_access = list(ACCESS_FOLLOWER, ACCESS_MILITARY)
 
 /datum/outfit/job/followers/f13followerguard
-	name =	"Followers Guard"
+	name =	"Town Paramedic"
 	jobtype =	/datum/job/followers/f13followerguard
-	belt =	/obj/item/storage/belt/army/followers
+	belt = /obj/item/kit_spawner/follower/guard
 	id =	/obj/item/card/id/silver
 	uniform =	/obj/item/clothing/under/f13/bodyguard
 	suit =	/obj/item/clothing/suit/armor/medium/vest/bulletproof/big
@@ -469,8 +478,10 @@ Follower Volunteer
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/storage/firstaid/ancient = 1,
 		/obj/item/stock_parts/cell/ammo/ec = 2,
+		/obj/item/storage/belt/army/followers = 1,
 	)
 
+/*
 /datum/outfit/loadout/guard_ranged
 	name = "Followers Ranged Guard"
 	suit_store = /obj/item/gun/ballistic/rifle/repeater/cowboy
@@ -494,3 +505,4 @@ Follower Volunteer
 	backpack_contents = list(
 		/obj/item/stock_parts/cell/ammo/ec = 1,
 	)
+*/
